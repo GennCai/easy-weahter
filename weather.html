@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Easy Weather</title>
+
+	<link rel="stylesheet" href="css/lib/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lib/bootstrap-theme.min.css">
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="header-box">
+				<span class="title">Easy Weather</span>
+				<span class="current-city">西安市</span>
+				<select class="select-city">
+					<option value="0">切换城市</option>
+				</select>
+			</div>
+		</div>
+		<div class="body">
+			<div class="weather-now n-bar">
+				<div class="now">
+					现在(更新时间：<span class="update-time"></span>）
+				</div>
+				<div class="now-temp">
+					<span class="now-temp-num">10</span>ºC
+					<span class="now-weather"></span>
+				</div>
+				<div class="now-description description">
+				</div>
+			</div>
+			<div class="weather-today n-bar">
+				<div class="today">今天</div>
+				<div class="today-description description">
+					白天天气 <span class="today-day-weather"></span> 夜间天气 <span class="today-night-weather"></span>
+				</div>
+				<div class="temp-description">
+					最高温度<span class="today-max"></span>℃ 最低温度<span class="today-min"></span>℃
+				</div>
+				<!--<div class="today-weather-box">
+					<div class="hour today-hour hour-temple">
+						<span class="hour-time">22:00</span>
+						<span class="hour-temp"><span class="hour-temp-num"></span>℃</span>
+					</div>
+				</div>-->
+			</div>
+
+			<div class="weather-tomorrow n-bar">
+				<div class="tomorrow">明天</div>
+				<div class="tomorrow-description description">
+					白天天气 <span class="tomorrow-day-weather"></span> 夜间天气 <span class="tomorrow-night-weather"></span>
+				</div>
+				<div class="temp-description">
+					最高温度<span class="tomorrow-max"></span>℃ 最低温度<span class="tomorrow-min"></span>℃
+				</div>
+			</div>
+			<div class="day-weather-box"></div>
+			<span id="btn-show-week" class="cursor-pointer btn btn-info btn-xs">显示本周天气</span>
+
+			<div class="change-city-box n-bar">
+				<div class="change-city-label">输入城市名称</div>
+				<div class="input-city-box">
+					<input type="text" class="input-city">
+					<button class="change-location btn btn-info btn-lg" id="btn-change-location">切换城市</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="footer-box">
+				<span>作者：GennCai</span>
+				<span>天气信息由百度提供</span>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/lib/jquery-3.1.1.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script charset="UTF-8" src="js/main.js"></script>
+</body>
+</html>
