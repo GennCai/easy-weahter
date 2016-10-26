@@ -1,4 +1,15 @@
 $(function(){
+    /**
+     * 定义全局变量
+     *
+     * weather 存储请求的天气信息的结果
+     * url     天气API
+     * apikey  api请求头里所要求的key值
+     *
+     * isWeekHasShow 标示是否显示一周的天气
+     * dayWeatherBox 显示一周天气的容器
+     * btnShowWeek   触发显示一周天气的按键
+     */
     var weather;
     var url = "http://apis.baidu.com/heweather/weather/free";
     var apikey = "0ae09eed4f3c0267cb6e6ed7e1cdda8f";
@@ -7,6 +18,7 @@ $(function(){
     var dayWeatherBox = $('.day-weather-box');
     var btnShowWeek = $('#btn-show-week');
 
+    //初始化天气，默认地点西安
     updateWeather("xian");
     var captainCities = [
         '北京','天津','上海','重庆','哈尔滨','长春',
@@ -17,11 +29,15 @@ $(function(){
         '香港','澳门'
     ];
 
+    //选择城市的列表
     var selectCity = $('.select-city');
+    //初始化省会城市列表
     for(var city in captainCities){
         var option = $('<option value="'+ captainCities[city] +'">' + captainCities[city]  +'</option>');
         selectCity.append(option);
     }
+
+    //当城市改变时，初始化页面
     selectCity.on('change', function(){
         if($(this).val() != 0){
             initPage($(this).val());
@@ -29,6 +45,7 @@ $(function(){
         }
     });
 
+    //手动输入城市时，初始化页面
     $('#btn-change-location').click(function(){
         var city = $('.input-city');
         if(city.val() != ''){
@@ -38,21 +55,17 @@ $(function(){
         }
     });
 
+    //显示或隐藏一周天气
     btnShowWeek.click(
         function(){
+            //隐藏一周天气
             if(isWeekHasShow){
                 dayWeatherBox.slideUp();
-                console.log("hide week");
-                console.log("child num : " + dayWeatherBox.children().length);
                 isWeekHasShow = false;
                 btnShowWeek.text("显示本周天气");
             }else{
-                if(dayWeatherBox.children().length != 0){
-                    dayWeatherBox.slideDown();
-                    console.log("show week");
-                    console.log("child num : " + dayWeatherBox.children().length);
-                    isWeekHasShow = true;
-                }else{
+                //判断是否加载过一周的天气，如果没加载过，先加载数据
+                if(dayWeatherBox.children().length == 0) {
                     var dayWeather = $('.weather-tomorrow');
                     for(var i=2; i<weather.daily_forecast.length; i++){
                         var dayClone = dayWeather.clone();
@@ -62,24 +75,24 @@ $(function(){
                         $('.tomorrow-max', dayClone).text(weather.daily_forecast[i].tmp.max);
                         $('.tomorrow-min', dayClone).text(weather.daily_forecast[i].tmp.min);
                         dayWeatherBox.append(dayClone);
-                        console.log("append week");
                     }
-                    isWeekHasShow = true;
-                    dayWeatherBox.slideDown();
                 }
+                //显示一周天气
+                isWeekHasShow = true;
+                dayWeatherBox.slideDown();
                 btnShowWeek.text("隐藏本周天气");
             }
 
         }
     );
-
+    //更新天气并初始化页面
     function initPage(city) {
         updateWeather(city);
         dayWeatherBox.empty();
         btnShowWeek.text("显示本周天气");
         isWeekHasShow = false;
     }
-
+    //ajax请求更新页面天气信息
     function updateWeather(city) {
         $.ajax({
             type: 'GET',
@@ -115,8 +128,7 @@ $(function(){
                     /*var hourClone = hourWeather.clone();
                      $('.hour-time', hourClone).text(weather.hourly_forecast[i].date.substr(11));
                      $('.hour-temp-num', hourClone).text(weather.hourly_forecast[i].tmp);*/
-                    todayBox.
-                        append(hourWeather);
+                    todayBox.append(hourWeather);
                 }
                 //hourTemple.remove();
                 $('.tomorrow-day-weather').text(weather.daily_forecast[1].cond.txt_d);
